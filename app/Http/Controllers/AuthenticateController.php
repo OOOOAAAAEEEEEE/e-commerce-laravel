@@ -11,25 +11,28 @@ use function PHPSTORM_META\map;
 
 class AuthenticateController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('main.login.index', [
             'title' => 'Login',
         ]);
     }
 
-    public function register(){
-        return view('main.register.index',[
+    public function register()
+    {
+        return view('main.register.index', [
             'title' => 'register',
         ]);
-        }
+    }
 
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('store');
@@ -40,7 +43,8 @@ class AuthenticateController extends Controller
         ])->onlyInput('email');
     }
 
-    public function store(User $user, Request $request){
+    public function store(User $user, Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -48,12 +52,15 @@ class AuthenticateController extends Controller
             'role' => 'member',
         ]);
 
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
         $user->create($validatedData);
 
         return redirect()->intended('/login')->with('success', 'Your account has been added successfully');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();

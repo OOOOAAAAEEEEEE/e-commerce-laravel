@@ -11,17 +11,26 @@
                     <a class="nav-link {{ Request::is('store*') ? 'active' : '' }}" href="/store" aria-current="page"><i class="bi bi-basket2"></i> Store <span class="visually-hidden">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
                         <a class="dropdown-item" href="#">Action 1</a>
-                        <a class="dropdown-item" href="/logout">Log Out <i class="bi bi-box-arrow-right"></i></a>
+                        
+                        
                     </div>
                 </li>
             </ul>
-            <form class="d-flex my-2 my-lg-0">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav me-5 mt-2 mt-lg-0">
+                <li class="nav-item">
+                    @if (auth()->user())
+                    <form class="nav-item" action="/logout" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-dark"> Log Out <i class="bi bi-box-arrow-right"> </i></button>
+                    </form>
+                    @else
+                        <a class="btn btn-dark" href="/login"> <i class="bi bi-box-arrow-in-right"></i> Login </a>
+                    @endif
+                </li>
+            </ul>
         </div>
   </div>
 </nav>
