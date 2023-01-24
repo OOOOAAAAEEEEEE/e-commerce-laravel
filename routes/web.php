@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\AuthenticateController;
+use App\Http\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [StoreController::class, 'index']);
+Route::get('/login', [AuthenticateController::class, 'index']);
+Route::post('/login', [AuthenticateController::class, 'authenticate']);
+Route::get('/register', [AuthenticateController::class, 'register']);
+Route::post('/register', [AuthenticateController::class, 'store']);
+Route::post('/logout', [AuthenticateController::class, 'logout']);
+
+Route::resource('/store', StoreController::class);
