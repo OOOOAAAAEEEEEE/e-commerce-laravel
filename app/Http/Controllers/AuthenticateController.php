@@ -27,6 +27,7 @@ class AuthenticateController extends Controller
 
     public function authenticate(Request $request)
     {
+        // dd($request);
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -47,12 +48,12 @@ class AuthenticateController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+        'email' => 'required|unique:users',
             'password' => 'required',
-            'role' => 'member',
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['role'] = 'member';
 
         $user->create($validatedData);
 

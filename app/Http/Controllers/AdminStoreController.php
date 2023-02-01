@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Store;
-use App\Http\Requests\StoreStoreRequest;
-use App\Http\Requests\UpdateStoreRequest;
+use App\Models\AdminStore;
+use App\Http\Requests\StoreAdminStoreRequest;
+use App\Http\Requests\UpdateAdminStoreRequest;
 
-class StoreController extends Controller
+class AdminStoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('main.store.index', [
-            'title' => 'Store',
-            'posts' => Store::latest()->paginate(12)->withQueryString(),
-        ]);
+        //
     }
 
     /**
@@ -34,10 +31,10 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreStoreRequest  $request
+     * @param  \App\Http\Requests\StoreAdminStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStoreRequest $request)
+    public function store(StoreAdminStoreRequest $request)
     {
         //
     }
@@ -45,10 +42,10 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Store  $store
+     * @param  \App\Models\AdminStore  $adminStore
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store)
+    public function show(AdminStore $adminStore)
     {
         //
     }
@@ -56,10 +53,10 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Store  $store
+     * @param  \App\Models\AdminStore  $adminStore
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit(AdminStore $adminStore)
     {
         //
     }
@@ -67,11 +64,11 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateStoreRequest  $request
-     * @param  \App\Models\Store  $store
+     * @param  \App\Http\Requests\UpdateAdminStoreRequest  $request
+     * @param  \App\Models\AdminStore  $adminStore
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStoreRequest $request, Store $store)
+    public function update(UpdateAdminStoreRequest $request, AdminStore $adminStore)
     {
         //
     }
@@ -79,10 +76,10 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Store  $store
+     * @param  \App\Models\AdminStore  $adminStore
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy(AdminStore $adminStore)
     {
         //
     }

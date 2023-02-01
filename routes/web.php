@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminStoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\AuthenticateController;

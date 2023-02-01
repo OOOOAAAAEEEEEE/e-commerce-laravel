@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Store>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AdminStore>
  */
-class StoreFactory extends Factory
+class AdminStoreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class StoreFactory extends Factory
     public function definition()
     {
         return [
-            'product' => fake()->name(),
-            'description' => fake()->sentence(),
-            'harga' => fake()->numerify('###.000'),
+            //
         ];
     }
 }

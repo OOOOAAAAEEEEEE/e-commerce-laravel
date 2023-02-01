@@ -10,17 +10,17 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('store*') ? 'active' : '' }}" href="/store" aria-current="page"><i class="bi bi-basket2"></i> Store <span class="visually-hidden">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="#">Action 1</a>
-                        
-                        
-                    </div>
-                </li>
             </ul>
             <ul class="navbar-nav me-5 mt-2 mt-lg-0">
                 <li class="nav-item">
+                    @can('admin')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="/store/create"><i class="bi bi-box-seam-fill"></i> Add Items </a>
+                        </div>
+                    </li>
+                    @endcan
                     @if (auth()->user())
                     <form class="nav-item" action="/logout" method="post">
                         @csrf

@@ -24,16 +24,36 @@
                 <form action="/login" method="post">
                     @csrf
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" placeholder="youremail@example.com" name="email" id="email" autofocus>
-
+                    <input type="email" class="form-control @error('email')
+                        is-invalid
+                    @enderror" placeholder="youremail@example.com" name="email" id="email" autofocus>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <label for="password" class="mt-3">Password</label>
-                    <input type="password" class="form-control" placeholder="yourpassword" name="password" id="password">
-
+                    <input type="password" class="form-control @error('password')
+                        is-invalid
+                    @enderror" placeholder="yourpassword" name="password" id="password">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <div class="d-grid gap-2 my-3">
-                        <button type="submit" class="btn btn-primary d-block">Log In <i class="bi bi-box-arrow-in-right"></i></button>
+                        <button type="submit" class="btn btn-primary d-block"> <i class="bi bi-box-arrow-in-right"></i> Log In </button>
                     </div>
                 </form>
-                <a href="/register">Not have an account?</a>
+                <div class="row">
+                    <div class="col">
+                        <a class="text-decoration-none" href="/register">Not have an account?</a>
+                    </div>
+                    <div class="col-3">
+                        <a class="text-decoration-none" href="/store">See store?</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

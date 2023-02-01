@@ -16,11 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name' => 'Arif Laksonodhewo',
+            'email' => 'arifldhewo234@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2...', //password
+            'role' => 'admin',
+        ]);
+
         User::factory(2)->create();
 
-        // Store::create([
-        //     'product' => 'Printer HP Desk Jet',
-        //     ''
-        // ]);
+        Store::factory(100)->create();
     }
 }
