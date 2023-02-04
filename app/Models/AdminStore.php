@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdminStore extends Model
 {
+    protected $guarded = ['id'];
+
     use HasFactory;
 }

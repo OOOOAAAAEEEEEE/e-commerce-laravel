@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Arif Laksonodhewo',
             'email' => 'arifldhewo234@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2...', //password
+            'password' => '$2a$12$ntdHR4jO7vJm3xtMKaU7UuXjsW4sWbdvs8zORTuKBHEVFFNL6OjaC', //password
             'role' => 'admin',
         ]);
 
         User::factory(2)->create();
 
-        Store::factory(100)->create();
+        // Store::factory(100)->create();
     }
 }

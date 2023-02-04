@@ -26,7 +26,7 @@
                     <label for="email">Email</label>
                     <input type="email" class="form-control @error('email')
                         is-invalid
-                    @enderror" placeholder="youremail@example.com" name="email" id="email" autofocus>
+                    @enderror" placeholder="youremail@example.com" name="email" id="email" autofocus value="{{ old('email') }}">
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}

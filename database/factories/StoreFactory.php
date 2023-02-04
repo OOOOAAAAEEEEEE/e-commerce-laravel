@@ -19,7 +19,7 @@ class StoreFactory extends Factory
         return [
             'product' => fake()->name(),
             'description' => fake()->sentence(),
-            'harga' => fake()->numerify('###.000'),
+            'harga' => fake()->numerify('###000'),
         ];
     }
 }

@@ -10,15 +10,14 @@
                     </div>
                 </div>
                 <div class="card-body shadow">
-                    <form action="/store/{{ $post[0]->id }}" method="post">
+                    <form action="/store" method="post">
                     @csrf
-                    @method('patch')
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="product" class="form-label"> Nama produk </label>
                                 <input type="text" class="form-control @error('product')
                                     is-invalid
-                                @enderror" name="product" id="product" placeholder="Sudah siap untuk menambah produk baru?" autofocus value="{{ $post[0]->product }}">
+                                @enderror" name="product" id="product" placeholder="Sudah siap untuk menambah produk baru?" autofocus value="{{ old('product') }}">
                                 @error('product')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -32,7 +31,7 @@
                                 <label for="description" class="form-label"> Deskripsi produk </label>
                                 <input type="text" class="form-control @error('description')
                                     is-invalid
-                                @enderror" name="description" id="description" placeholder="Tambah deskripsi produk dong" autofocus value="{{ $post[0]->description }}">
+                                @enderror" name="description" id="description" placeholder="Tambah deskripsi produk dong" autofocus value="{{ old('description') }}">
                                 @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -46,7 +45,7 @@
                                 <label for="harga" class="form-label"> Harga Produk </label>
                                 <input type="number" class="form-control @error('harga')
                                     is-invalid
-                                @enderror" name="harga" id="harga" placeholder="Tentukan harga produk anda" autofocus value="{{ $post[0]->harga }}">
+                                @enderror" name="harga" id="harga" placeholder="Tentukan harga produk anda" autofocus value="{{ old('harga') }}">
                                 @error('harga')
                                     <div class="invalid-feedback">
                                         {{ $message }}

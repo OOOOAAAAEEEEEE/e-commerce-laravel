@@ -17,11 +17,33 @@ use App\Http\Middleware\Authenticate;
 |
 */
 
-Route::get('/', [StoreController::class, 'index']);
-Route::get('/login', [AuthenticateController::class, 'index']);
 Route::post('/login', [AuthenticateController::class, 'authenticate']);
-Route::get('/register', [AuthenticateController::class, 'register']);
 Route::post('/register', [AuthenticateController::class, 'store']);
 Route::post('/logout', [AuthenticateController::class, 'logout']);
 
-Route::resource('/store', StoreController::class);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [AuthenticateController::class, 'index'])->name('login');
+    Route::get('/register', [AuthenticateController::class, 'register']);
+});
+
+Route::controller(StoreController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/store', 'index');
+
+    Route::get('/store/create', 'create')->middleware(['auth', 'check.roles']);
+    Route::post('/store', 'store');
+
+    Route::get('/store/{id}', 'show');
+
+    Route::get('/store/{id}/edit', 'edit')->middleware(['auth', 'check.roles']);
+    Route::patch('/store/{id}', 'update');
+
+    Route::delete('/store/{id}', 'destroy');
+
+    Route::get('/store/{id}/buy', 'buyShow')->middleware('auth');
+    Route::post('/store/{id}/buy', 'buyStore');
+
+    Route::get('/admin/checkOrders', 'checkOrdersIndex')->middleware(['auth', 'check.roles']);
+
+    Route::patch('/admin/checkOrders/{uuid_code}/confirm', 'confirmOrders');
+});
