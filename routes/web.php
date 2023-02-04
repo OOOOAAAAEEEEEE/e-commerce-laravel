@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminStoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\AuthenticateController;
-use App\Http\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,20 +28,21 @@ Route::controller(StoreController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/store', 'index');
 
-    Route::get('/store/create', 'create')->middleware(['auth', 'check.roles']);
-    Route::post('/store', 'store');
+    Route::get('/admin/store/create', 'create')->middleware(['auth', 'check.roles']);
+    Route::post('/admin/store', 'store');
 
-    Route::get('/store/{id}', 'show');
+    Route::get('/store/{product_code}', 'show');
 
-    Route::get('/store/{id}/edit', 'edit')->middleware(['auth', 'check.roles']);
-    Route::patch('/store/{id}', 'update');
+    Route::get('/admin/store/{product_code}/edit', 'edit')->middleware(['auth', 'check.roles']);
+    Route::patch('/admin/store/{product_code}', 'update');
 
-    Route::delete('/store/{id}', 'destroy');
+    Route::delete('/admin/store/{product_code}', 'destroy');
 
-    Route::get('/store/{id}/buy', 'buyShow')->middleware('auth');
-    Route::post('/store/{id}/buy', 'buyStore');
+    Route::get('/store/{product_code}/buy', 'buyShow')->middleware('auth');
+    Route::post('/store/{product_code}/buy', 'buyStore');
 
-    Route::get('/admin/checkOrders', 'checkOrdersIndex')->middleware(['auth', 'check.roles']);
+    Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth', 'check.roles']);
+    Route::patch('/admin/checkOrders/{product_code}/confirm', 'confirmOrders');
 
-    Route::patch('/admin/checkOrders/{uuid_code}/confirm', 'confirmOrders');
+    Route::get('/admin/historiesOrders', 'checkHistoriesIndex');
 });

@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="d-grid gap-2">
-                                    <a class="btn btn-success" href="/store/{{ $post[0]->id }}/buy"> <i class="bi bi-bag-fill"></i> Buy </a>
+                                    <a class="btn btn-success" href="/store/{{ $post[0]->product_code }}/buy"> <i class="bi bi-bag-fill"></i> Buy </a>
                                 </div>
                             </div>
                         </div>

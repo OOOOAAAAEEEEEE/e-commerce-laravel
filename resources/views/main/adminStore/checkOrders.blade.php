@@ -9,9 +9,10 @@
                 <div class="card shadow" style="width: 25rem;">
                     <div class="card-body shadow">
                         <p><strong> UUID </strong>: {{ $post->uuid_code }}</p>
+                        <p><strong> Total Harga </strong>: {{ number_format($post->total_harga, 2) }}</p>
                         <div class="row">
                             <div class="col">                            
-                                <form action="/admin/checkOrders/{{ $post->uuid_code }}/confirm" method="POST">
+                                <form action="/admin/checkOrders/{{ $post->product_code }}/confirm" method="POST">
                                     @csrf
                                     @method('patch')            
                                     <input type="hidden" name="status" value="success">

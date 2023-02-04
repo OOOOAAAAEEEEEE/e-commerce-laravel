@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="card-body shadow">
-                    <form action="/store/{{ $post[0]->id }}" method="post">
+                    <form action="/admin/store/{{ $post[0]->product_code }}" method="post">
                     @csrf
                     @method('patch')
                         <div class="row mb-3">

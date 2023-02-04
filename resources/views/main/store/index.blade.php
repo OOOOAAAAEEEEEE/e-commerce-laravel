@@ -31,13 +31,13 @@
                   <h5 class="card-title">{{ $post->product }}</h5>
                   <p class="card-text">{{ $post->description }}.</p>
                   <p class="card-text">Harga: Rp{{  number_format($post->harga, 2) }}</p>
-                  <a href="/store/{{ $post->id }}" class="btn btn-info btn-sm text-dark"> <i class="bi bi-eye-fill text-white"></i> Show </a>
+                  <a href="/store/{{ $post->product_code }}" class="btn btn-info btn-sm text-dark"> <i class="bi bi-eye-fill text-white"></i> Show </a>
                   @can('member')
-                    <a class="btn btn-success btn-sm" href="/store/{{ $post->id }}/buy" class="btn btn-success btn-sm"> <i class="bi bi-bag-plus-fill"></i> Buy </a>
+                    <a class="btn btn-success btn-sm" href="/store/{{ $post->product_code }}/buy" class="btn btn-success btn-sm"> <i class="bi bi-bag-plus-fill"></i> Buy </a>
                   @endcan
                   @can('admin')
-                    <a href="/store/{{ $post->id }}/edit" class="btn btn-warning btn-sm"> <i class="bi bi-pencil-square"></i> Edit </a>
-                    <form class="d-inline" action="/store/{{ $post->id }}" method="post">
+                    <a href="/admin/store/{{ $post->product_code }}/edit" class="btn btn-warning btn-sm"> <i class="bi bi-pencil-square"></i> Edit </a>
+                    <form class="d-inline" action="/admin/store/{{ $post->product_code }}" method="post">
                       @csrf
                       @method('delete')
                       <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this item?')"> <i class="bi bi-bag-x-fill"></i> Trash </button>

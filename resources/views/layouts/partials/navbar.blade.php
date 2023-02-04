@@ -15,10 +15,11 @@
                 <li class="nav-item">
                     @can('admin')
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots"></i></a>
+                        <a class="nav-link dropdown-toggle {{ Request::is('admin*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More <i class="bi bi-three-dots"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="/store/create"><i class="bi bi-box-seam-fill"></i> Add Items </a>
+                            <a class="dropdown-item" href="/admin/store/create"><i class="bi bi-box-seam-fill"></i> Add Items </a>
                             <a class="dropdown-item" href="/admin/checkOrders"><i class="bi bi-box-seam-fill"></i> Check Orders </a>
+                            <a class="dropdown-item" href="/admin/historiesOrders"><i class="bi bi-box-seam-fill"></i> Histories Orders </a>
                         </div>
                     </li>
                     @endcan

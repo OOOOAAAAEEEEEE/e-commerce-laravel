@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="card-body shadow">
-                    <form action="/store" method="post">
+                    <form action="/admin/store" method="post">
                     @csrf
                         <div class="row mb-3">
                             <div class="col">

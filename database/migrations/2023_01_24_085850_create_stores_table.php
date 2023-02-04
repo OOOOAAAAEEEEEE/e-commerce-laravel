@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
+            $table->string('product_code');
             $table->string('product');
             $table->string('description');
             $table->string('harga');
-            $table->string('uuid_code');
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 @section('container')
     
-<form class="d-inline" action="/store/{{ $post[0]->id }}/buy" method="post">
+<form class="d-inline" action="/store/{{ $post[0]->product_code }}/buy" method="post">
     @csrf
     <div class="row my-3">
         <div class="col">
@@ -29,8 +29,15 @@
                         <div class="d-flex justify-content-center">
                             <div class="input-group my-3">
                                 <span class="input-group-text">Harga: Rp{{ number_format($post[0]->harga, 2) }}</span>
-                                <input type="hidden" name="uuid_code" value="{{ $post[0]->uuid_code }}">
-                                <input type="number" class="form-control" name="total_harga" id="harga" placeholder="masukkan jumlah yang ingin anda beli">
+                                <input type="hidden" name="product_code" value="{{ $post[0]->product_code }}">
+                                <input type="number" class="form-control @error('total_harga')
+                                    is-invalid
+                                @enderror" name="total_harga" id="harga" placeholder="masukkan jumlah yang ingin anda beli">
+                                @error('total_harga')
+                                    <div class="invalid-feedback">
+                                    {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>

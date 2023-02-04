@@ -50,7 +50,7 @@ class StoreController extends Controller
             'harga' => 'required',
         ]);
 
-        $validatedData['uuid_code'] = Str::orderedUuid();
+        $validatedData['product_code'] = "PRD-" . Str::random(9);
 
         Store::create($validatedData);
 
@@ -63,11 +63,11 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store, $id)
+    public function show(Store $store, $product_code)
     {
         return view('main.store.show', [
             'title' => 'See details products here',
-            'post' => $store->where('id', $id)->get(),
+            'post' => $store->where('product_code', $product_code)->get(),
         ]);
     }
 
@@ -77,11 +77,11 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store, $id)
+    public function edit(Store $store, $product_code)
     {
         return view('main.adminStore.edit', [
             'title' => 'Edit Your Post Here!',
-            'post' => $store->where('id', $id)->get(),
+            'post' => $store->where('product_code', $product_code)->get(),
         ]);
     }
 
@@ -92,7 +92,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStoreRequest $request, Store $store, $id)
+    public function update(UpdateStoreRequest $request, Store $store, $product_code)
     {
         $validatedData = $request->validate([
             'product' => 'required',
@@ -100,7 +100,7 @@ class StoreController extends Controller
             'harga' => 'required',
         ]);
 
-        $store->where('id', $id)->update($validatedData);
+        $store->where('product_code', $product_code)->update($validatedData);
 
         return redirect('/store')->with('success', 'Your item has been updated successfully');
     }
@@ -111,32 +111,32 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store, $id)
+    public function destroy(Store $store, $product_code)
     {
-        $store->where('id', $id)->delete();
+        $store->where('product_code', $product_code)->delete();
 
         return redirect('/store')->with('success', 'Your items has been deleted');
     }
 
-    public function buyShow(Store $store, $id)
+    public function buyShow(Store $store, $product_code)
     {
         return view('main.store.buy', [
             'title' => 'Beli barang kuyyy',
-            'post' => $store->where('id', $id)->get(),
+            'post' => $store->where('product_code', $product_code)->get(),
         ]);
     }
 
-    public function buyStore(StoreStoreRequest $request, Order $order, Store $store, $id)
+    public function buyStore(StoreStoreRequest $request, Order $order, Store $store, $product_code)
     {
-        $basePrice = $store->where('id', $id)->get();
+        $basePrice = $store->where('product_code', $product_code)->get();
 
         $validatedData = $request->validate([
-            'uuid_code' => 'required',
+            'product_code' => 'required',
             'total_harga' => 'required',
         ]);
 
+        $validatedData['uuid_code'] = Str::orderedUuid();
         $validatedData['total_harga'] = $basePrice[0]->harga * $validatedData['total_harga'];
-
         $validatedData['status'] = 'waitConfirmation';
 
         $order->create($validatedData);
@@ -144,7 +144,7 @@ class StoreController extends Controller
         return redirect('/store')->with('success', 'Your order has been added');
     }
 
-    public function checkOrdersIndex(Order $order)
+    public function checkOrdersAdminIndex(Order $order)
     {
         return view('main.adminStore.checkOrders', [
             'title' => 'Waiting for your confirmation',
@@ -152,14 +152,22 @@ class StoreController extends Controller
         ]);
     }
 
-    public function confirmOrders(UpdateStoreRequest $request, Order $order, $uuid_code)
+    public function confirmOrders(UpdateStoreRequest $request, Order $order, $product_code)
     {
         $validatedData = $request->validate([
             'status' => 'required',
         ]);
 
-        $order->where('uuid_code', $uuid_code)->update($validatedData);
+        $order->where('product_code', $product_code)->update($validatedData);
 
         return redirect('/admin/checkOrders')->with('sucess', 'This item has been confirm');
+    }
+
+    public function checkHistoriesIndex(Order $order)
+    {
+        return view('main.adminStore.checkHistories', [
+            'title' => 'Your history items',
+            'posts' => $order->where('status', 'success')->latest()->paginate(15),
+        ]);
     }
 }
