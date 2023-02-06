@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('product_code');
             $table->string('product');
             $table->string('description');
-            $table->string('harga');
+            $table->string('price');
+            $table->string('stock');
             $table->timestamps();
         });
     }

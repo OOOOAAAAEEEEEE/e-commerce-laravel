@@ -21,22 +21,28 @@
                         <div class="d-flex justify-content-center">
                             <p class="fs-5">Deskripsi: {{ $post[0]->description }}</p>
                         </div>
-                    <div class="row">
-                        <div class="d-flex justify-content-center">
-                            <p class="fs-5">Harga: Rp{{ number_format($post[0]->harga, 2) }}</p>
-                        </div>
-                    </div>
-                    @can('member')
                         <div class="row">
-                            <div class="col">
-                                <div class="d-grid gap-2">
-                                    <a class="btn btn-success" href="/store/{{ $post[0]->product_code }}/buy"> <i class="bi bi-bag-fill"></i> Buy </a>
-                                </div>
+                            <div class="d-flex justify-content-center">
+                                <p class="fs-5">Harga: Rp{{ number_format($post[0]->price, 2) }}</p>
                             </div>
                         </div>
-                    @endcan
+                        <div class="row">
+                            <div class="d-flex justify-content-center">
+                                <p class="fs-5">Stock: {{ $post[0]->stock }}</p>
+                            </div>
+                        </div>
+                        @can('member')
+                            <div class="row">
+                                <div class="col">
+                                    <div class="d-grid gap-2">
+                                        <a class="btn btn-success" href="/store/{{ $post[0]->product_code }}/buy"> <i
+                                                class="bi bi-bag-fill"></i> Buy </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

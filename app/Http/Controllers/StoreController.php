@@ -47,7 +47,8 @@ class StoreController extends Controller
         $validatedData = $request->validate([
             'product' => 'required',
             'description' => 'required',
-            'harga' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
         ]);
 
         $validatedData['product_code'] = "PRD-" . Str::random(9);
@@ -97,7 +98,8 @@ class StoreController extends Controller
         $validatedData = $request->validate([
             'product' => 'required',
             'description' => 'required',
-            'harga' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
         ]);
 
         $store->where('product_code', $product_code)->update($validatedData);
@@ -132,13 +134,19 @@ class StoreController extends Controller
 
         $validatedData = $request->validate([
             'product_code' => 'required',
-            'total_harga' => 'required',
+            'total_price' => 'required',
         ]);
-
+        
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['stock'] = $validatedData['total_price'];
         $validatedData['uuid_code'] = Str::orderedUuid();
-        $validatedData['total_harga'] = $basePrice[0]->harga * $validatedData['total_harga'];
+        $validatedData['total_price'] = $basePrice[0]->price * $validatedData['total_price'];
         $validatedData['status'] = 'waitConfirmation';
 
+        $stockCurrent = $basePrice[0]->stock - $validatedData['stock'];
+
+        $store->where('product_code', $product_code)->update(['stock' => $stockCurrent]);
+        
         $order->create($validatedData);
 
         return redirect('/store')->with('success', 'Your order has been added');

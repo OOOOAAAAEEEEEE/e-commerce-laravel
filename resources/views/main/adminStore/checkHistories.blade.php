@@ -1,29 +1,30 @@
 @extends('layouts.master.master')
 
 @section('container')
-    
-<div class="row">
-    @foreach ($posts as $post)
-        <div class="mt-3">
-            <div class="col">
-                <div class="card shadow" style="width: 25rem;">
-                    <div class="card-body shadow">
-                        <p><strong> UUID </strong>: {{ $post->uuid_code }}</p>
-                        <p><strong> Harga </strong>: Rp{{ number_format($post->total_harga, 2) }}</p>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-success d-block" onclick="return confirm('Are you sure want to confirm this item')" disabled> <i class="bi bi-bag-check"></i> Success </button>
-                                </div>    
+    <div class="row">
+        @foreach ($posts as $post)
+            <div class="mt-3">
+                <div class="col">
+                    <div class="card shadow" style="width: 25rem;">
+                        <div class="card-body shadow">
+                            <p><strong> UUID </strong>: {{ $post->uuid_code }}</p>
+                            <p><strong> Harga </strong>: Rp{{ number_format($post->total_price, 2) }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-success d-block"
+                                            onclick="return confirm('Are you sure want to confirm this item')" disabled> <i
+                                                class="bi bi-bag-check"></i> Success </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
-</div>
+        @endforeach
+    </div>
 
 
-{{ $posts->links() }}
+    {{ $posts->links() }}
 @endsection
