@@ -42,7 +42,8 @@ Route::controller(StoreController::class)->group(function () {
     Route::post('/store/{product_code}/buy', 'buyStore');
 
     Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth', 'check.roles']);
-    Route::patch('/admin/checkOrders/{product_code}/confirm', 'confirmOrders');
+    Route::patch('/admin/confirmOrder/{uuid}', 'confirmOrder');
 
     Route::get('/admin/historiesOrders', 'checkHistoriesIndex');
+    Route::delete('/admin/declineOrder/{uuid}', 'declineOrder');
 });

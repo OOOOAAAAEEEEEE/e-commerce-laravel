@@ -7,6 +7,7 @@ use App\Models\Order;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class StoreController extends Controller
 {
@@ -156,19 +157,19 @@ class StoreController extends Controller
     {
         return view('main.adminStore.checkOrders', [
             'title' => 'Waiting for your confirmation',
-            'posts' => $order->where('status', 'waitConfirmation')->latest()->paginate(15),
+            'posts' => $order->fetchIndexOrders(),
         ]);
     }
 
-    public function confirmOrders(UpdateStoreRequest $request, Order $order, $product_code)
+    public function confirmOrder(UpdateStoreRequest $request, Order $order, $uuid)
     {
         $validatedData = $request->validate([
             'status' => 'required',
         ]);
 
-        $order->where('product_code', $product_code)->update($validatedData);
+        $order->where('uuid_code', $uuid)->update($validatedData);
 
-        return redirect('/admin/checkOrders')->with('sucess', 'This item has been confirm');
+        return redirect('/admin/historiesOrders')->with('sucess', 'This item has been confirm');
     }
 
     public function checkHistoriesIndex(Order $order)
@@ -177,5 +178,19 @@ class StoreController extends Controller
             'title' => 'Your history items',
             'posts' => $order->where('status', 'success')->latest()->paginate(15),
         ]);
+    }
+
+    public function declineOrder(UpdateStoreRequest $request, Store $store, Order $order, $uuid)
+    {
+        $product_code = $request->product_code;
+        $userStock = $request->stock;
+        $stock = $store->where('product_code', $product_code)->get();
+        $stockCurrent = $stock[0]->stock + $userStock;
+        
+        $store->where('product_code', $product_code)->update(['stock' => $stockCurrent]);
+
+        $order->where('uuid_code', $uuid)->delete();
+
+        return redirect('/admin/checkOrders')->with('success', 'This items has been decline');
     }
 }
