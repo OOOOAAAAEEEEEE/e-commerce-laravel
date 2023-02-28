@@ -25,8 +25,7 @@
 
     <div class="row">
         @foreach ($posts as $post)
-            <div class="mt-3">
-                <div class="col">
+                <div class="col-4 mt-3">
                     <div class="card shadow" style="width: 25rem;">
                         <div class="card-body shadow">
                             <p><strong> UUID </strong>: {{ $post->uuid_code }}</p>
@@ -43,7 +42,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         @endforeach
     </div>
 

@@ -48,14 +48,16 @@
                                 {{ __('Add New Product') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('checkOrders')">
-                                {{ __('Check Current Orders') }}
-                            </x-dropdown-link>
-
                             <x-dropdown-link :href="route('checkHistories')">
                                 {{ __('Check History Orders') }}
                             </x-dropdown-link>
                         @endcan
+
+                        <x-dropdown-link :href="route('checkOrders')">
+                            {{ __('Check Orders') }}
+                        </x-dropdown-link>
+
+                        
 
                         
 

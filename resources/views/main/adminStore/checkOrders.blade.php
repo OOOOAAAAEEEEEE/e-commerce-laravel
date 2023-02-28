@@ -35,6 +35,10 @@
                             <p><strong> Dibeli:  </strong>: {{ $post->stock }} /pcs</p>
                             <p><strong> Dibeli Pada:  </strong>: {{ $post->created_at }} /pcs</p>
                             <p><strong> Total Harga </strong>: {{ number_format($post->total_price, 2) }}</p>
+                            @can('member')
+                            <p><strong> Status </strong>: {{ $post->status }}</p>
+                            @endcan
+                            @can('admin')
                             <div class="row">
                                 <div class="col">
                                     <form action="/admin/confirmOrder/{{$post->uuid}}" method="POST">
@@ -58,6 +62,7 @@
                                     </form>
                                 </div>
                             </div>
+                            @endcan
                         </div>
                     </div>
                 </div>

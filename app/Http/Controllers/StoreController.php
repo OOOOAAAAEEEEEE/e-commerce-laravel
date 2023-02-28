@@ -7,7 +7,6 @@ use App\Models\Order;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
-use Illuminate\Support\Facades\Redirect;
 
 class StoreController extends Controller
 {

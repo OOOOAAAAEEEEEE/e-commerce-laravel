@@ -42,10 +42,10 @@ Route::controller(StoreController::class)->group(function () {
     Route::get('/store/{product_code}/buy', 'buyShow')->middleware('auth')->name('buyProduct');
     Route::post('/store/{product_code}/buy', 'buyStore');
 
-    Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth', 'check.roles'])->name('checkOrders');
+    Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth'])->name('checkOrders');
     Route::patch('/admin/confirmOrder/{uuid}', 'confirmOrder');
 
-    Route::get('/admin/historiesOrders', 'checkHistoriesIndex')->middleware(['auth', 'check.roles'])->name('checkHistories');
+    Route::get('/admin/historiesOrders', 'checkHistoriesIndex')->middleware(['auth'])->name('checkHistories');
     Route::delete('/admin/declineOrder/{uuid}', 'declineOrder');
 });
 
