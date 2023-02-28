@@ -1,6 +1,8 @@
-@extends('layouts.master.master')
+<x-app-layout>
 
-@section('container')
+    <x-slot name="header">
+        <h2 class="fw-bold">Show {{ $post[0]->product }}</h2>
+    </x-slot>
     <div class="row my-3">
         <div class="col">
             <div class="card shadow">
@@ -45,4 +47,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    
+    </x-app-layout>

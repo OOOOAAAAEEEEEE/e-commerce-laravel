@@ -1,6 +1,10 @@
-@extends('layouts.master.master')
+<x-app-layout>
 
-@section('container')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Store') }}
+        </h2>
+    </x-slot>
     @if (session()->has('success'))
         <div class="row mt-5">
             <div class="col">
@@ -55,4 +59,4 @@
         @endforeach
     </div>
     {{ $posts->links() }}
-@endsection
+</x-app-layout>

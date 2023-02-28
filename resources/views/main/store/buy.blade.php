@@ -1,6 +1,8 @@
-@extends('layouts.master.master')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="fw-bold"> Buy {{ $post[0]->product }}</h2>
+    </x-slot>
 
-@section('container')
     <form class="d-inline" action="/store/{{ $post[0]->product_code }}/buy" method="post">
         @csrf
         <div class="row my-3">
@@ -68,4 +70,4 @@
                 </div>
             </div>
     </form>
-@endsection
+</x-app-layout>

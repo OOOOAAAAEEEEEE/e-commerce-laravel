@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\AuthenticateController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,40 +10,43 @@ use App\Http\Controllers\AuthenticateController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-Route::post('/login', [AuthenticateController::class, 'authenticate']);
-Route::post('/register', [AuthenticateController::class, 'store']);
-Route::post('/logout', [AuthenticateController::class, 'logout']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [AuthenticateController::class, 'index'])->name('login');
-    Route::get('/register', [AuthenticateController::class, 'register']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::controller(StoreController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('/store', 'index');
+    Route::get('/store', 'index')->name('indexProducts');
 
-    Route::get('/admin/store/create', 'create')->middleware(['auth', 'check.roles']);
+    Route::get('/admin/store/create', 'create')->middleware(['auth', 'check.roles'])->name('createProduct');
     Route::post('/admin/store', 'store');
 
-    Route::get('/store/{product_code}', 'show');
+    Route::get('/store/{product_code}', 'show')->name('showProducts');
 
-    Route::get('/admin/store/{product_code}/edit', 'edit')->middleware(['auth', 'check.roles']);
+    Route::get('/admin/store/{product_code}/edit', 'edit')->middleware(['auth', 'check.roles'])->name('editProduct');
     Route::patch('/admin/store/{product_code}', 'update');
 
     Route::delete('/admin/store/{product_code}', 'destroy');
 
-    Route::get('/store/{product_code}/buy', 'buyShow')->middleware('auth');
+    Route::get('/store/{product_code}/buy', 'buyShow')->middleware('auth')->name('buyProduct');
     Route::post('/store/{product_code}/buy', 'buyStore');
 
-    Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth', 'check.roles']);
+    Route::get('/admin/checkOrders', 'checkOrdersAdminIndex')->middleware(['auth', 'check.roles'])->name('checkOrders');
     Route::patch('/admin/confirmOrder/{uuid}', 'confirmOrder');
 
-    Route::get('/admin/historiesOrders', 'checkHistoriesIndex');
+    Route::get('/admin/historiesOrders', 'checkHistoriesIndex')->middleware(['auth', 'check.roles'])->name('checkHistories');
     Route::delete('/admin/declineOrder/{uuid}', 'declineOrder');
 });
+
+require __DIR__.'/auth.php';
