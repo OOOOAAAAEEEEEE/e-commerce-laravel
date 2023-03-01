@@ -6,12 +6,12 @@
     <div class="row my-3">
         <div class="col">
             <div class="card shadow">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h5>{{ $post[0]->product }}</h5>
-                    </div>
-                </div>
                 <div class="card-body shadow">
+                    <div class="row">
+                        <div class="col-1">
+                            <a href="{{ route('indexProducts') }}" class="btn text-primary-emphasis bg-primary-subtle border border-primary-subtle"> <i class="bi bi-arrow-left-circle"></i> Back </a>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="d-flex justify-content-center">

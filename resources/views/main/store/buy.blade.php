@@ -10,7 +10,7 @@
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="card-title">
-                            <h5>{{ $post[0]->product }}</h5>
+                            <a href="{{ route('indexProducts') }}" class="btn bg-primary-subtle text-primary-emphasis border-primary"> <i class="bi bi-arrow-left-circle"></i> Back </a>
                         </div>
                     </div>
                     <div class="card-body shadow">

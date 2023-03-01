@@ -86,7 +86,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary d-block" type="submit">Submit <i
+                                    <button class="btn bg-primary-subtle border-primary-subtle text-primary-emphasis d-block" type="submit">Submit <i
                                             class="bi bi-send-plus-fill"></i></button>
                                 </div>
                             </div>

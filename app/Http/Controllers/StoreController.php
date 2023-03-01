@@ -55,7 +55,7 @@ class StoreController extends Controller
 
         Store::create($validatedData);
 
-        return redirect('store')->with('success', 'Your item has been added successfully!');
+        return redirect()->route('indexProducts')->with('success', 'Your item has been added successfully!');
     }
 
     /**
@@ -104,7 +104,7 @@ class StoreController extends Controller
 
         $store->where('product_code', $product_code)->update($validatedData);
 
-        return redirect('/store')->with('success', 'Your item has been updated successfully');
+        return redirect()->route('indexProducts')->with('success', 'Your item has been updated successfully');
     }
 
     /**
@@ -117,7 +117,7 @@ class StoreController extends Controller
     {
         $store->where('product_code', $product_code)->delete();
 
-        return redirect('/store')->with('success', 'Your items has been deleted');
+        return  redirect()->route('indexProducts')->with('success', 'Your items has been deleted');
     }
 
     public function buyShow(Store $store, $product_code)
@@ -136,7 +136,7 @@ class StoreController extends Controller
             'product_code' => 'required',
             'total_price' => 'required',
         ]);
-        
+
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['stock'] = $validatedData['total_price'];
         $validatedData['uuid_code'] = Str::orderedUuid();
@@ -146,10 +146,10 @@ class StoreController extends Controller
         $stockCurrent = $basePrice[0]->stock - $validatedData['stock'];
 
         $store->where('product_code', $product_code)->update(['stock' => $stockCurrent]);
-        
+
         $order->create($validatedData);
 
-        return redirect('/store')->with('success', 'Your order has been added');
+        return  redirect()->route('checkOrders')->with('success', 'Your order has been added');
     }
 
     public function checkOrdersAdminIndex(Order $order)
@@ -168,14 +168,14 @@ class StoreController extends Controller
 
         $order->where('uuid_code', $uuid)->update($validatedData);
 
-        return redirect('/admin/historiesOrders')->with('sucess', 'This item has been confirm');
+        return  redirect()->back()->with('sucess', 'This item has been confirm');
     }
 
     public function checkHistoriesIndex(Order $order)
     {
         return view('main.adminStore.checkHistories', [
             'title' => 'Your history items',
-            'posts' => $order->where('status', 'success')->latest()->paginate(15),
+            'posts' => $order->latest()->paginate(15),
         ]);
     }
 
@@ -185,11 +185,11 @@ class StoreController extends Controller
         $userStock = $request->stock;
         $stock = $store->where('product_code', $product_code)->get();
         $stockCurrent = $stock[0]->stock + $userStock;
-        
+
         $store->where('product_code', $product_code)->update(['stock' => $stockCurrent]);
 
-        $order->where('uuid_code', $uuid)->delete();
+        $order->where('uuid_code', $uuid)->update(['status' => 'declined']);
 
-        return redirect('/admin/checkOrders')->with('success', 'This items has been decline');
+        return  redirect()->route('checkOrders')->with('success', 'This items has been decline');
     }
 }

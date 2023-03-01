@@ -33,9 +33,15 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-success d-block"
+                                        @if ($post->status == 'success')
+                                            <button class="btn btn-success d-block"
                                             onclick="return confirm('Are you sure want to confirm this item')" disabled> <i
                                                 class="bi bi-bag-check"></i> Success </button>
+                                        @else
+                                            <button class="btn btn-danger d-block"
+                                            onclick="return confirm('Are you sure want to confirm this item')" disabled> <i
+                                                class="bi bi-bag-x"></i> Declined </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
